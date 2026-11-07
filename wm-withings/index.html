@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"><title>Return to WM</title><style>body{background:#0c0c0e;color:#fafafa;font:18px system-ui;max-width:32rem;margin:15vh auto;padding:24px}a{display:inline-block;background:#F94B06;color:white;padding:14px 24px;border-radius:20px;text-decoration:none}p{color:#aaa}</style></head><body><h1>Return to WM</h1><p>Finish your Withings sign-in in the WM app.</p><a id="open">Open WM</a><noscript><p>JavaScript is required to return the one-time authorization to WM. Enable it and try signing in again.</p></noscript><script>
+'use strict';
+const source=new URLSearchParams(location.search);
+const target=new URL('wm://withings/callback');
+for(const key of ['code','state','error']){const value=source.get(key);if(value!==null)target.searchParams.set(key,value);}
+history.replaceState(null,'',location.pathname);
+const button=document.getElementById('open');
+if(target.search){button.href=target.toString();location.replace(target.toString());}
+else{button.textContent='Open WM';button.href='wm://withings/callback';}
+</script></body></html>
